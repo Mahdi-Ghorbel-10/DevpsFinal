@@ -5,9 +5,7 @@ pipeline {
             steps {
                 echo 'Running Unit Tests...'
                 sh '''
-                    python3 -m venv venv
-                    source venv/bin/activate
-                    pip install -r requirements.txt
+                    
                     pytest --junitxml=unit-test-report.xml
                 '''
             }
