@@ -5,8 +5,14 @@ pipeline {
             steps {
                 echo 'Running Unit Tests...'
                 sh '''
-                    
+                    echo "Checking Python version:"
+                    python3 --version
+                    echo "Checking pytest version:"
+                    pytest --version
+                    echo "Running pytest..."
                     pytest --junitxml=unit-test-report.xml
+                    echo "Listing generated files:"
+                    ls -l
                 '''
             }
         }
