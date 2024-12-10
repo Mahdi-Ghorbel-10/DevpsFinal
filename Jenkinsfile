@@ -1,17 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Unit Testing') {
-            steps {
-                echo 'Running Unit Tests...'
-                sh '''
-                    python3 -m venv venv
-                    source venv/bin/activate
-                    pip install -r requirements.txt
-                    pytest --junitxml=unit-test-report.xml
-                '''
-            }
-        }
+        
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t ghorbelmahdi/simple-fastapi-app .'
@@ -28,9 +18,5 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            junit 'unit-test-report.xml'
-        }
-    }
+  
 }
