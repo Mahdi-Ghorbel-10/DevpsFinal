@@ -7,9 +7,9 @@ pipeline {
                 sh 'docker build -t ghorbelmahdi/simple-fastapi-app .'
             }
         }
-       stage('Snyk Test') {
+       stage('Trivy Scan') {
             steps {
-                sh 'snyk container test ghorbelmahdi/simple-fastapi-app:latest'
+                sh 'trivy image ghorbelmahdi/simple-fastapi-app:latest'
             }
         }
         stage('Push Docker Image') {
