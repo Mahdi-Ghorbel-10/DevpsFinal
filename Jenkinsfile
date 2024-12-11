@@ -16,13 +16,13 @@ pipeline {
       stage('SonarQube Analysis') {
             steps {
                 script {
-                    def scannerHome = tool 'SonarScanner'; // Ensure 'SonarScanner' matches the name configured in Jenkins
-                    withSonarQubeEnv('sq1') { // 'sq1' is the configured SonarQube server name
+                    def scannerHome = tool 'SonarScanner'; // Ensure 'SonarScanner' matches your configured scanner name in Jenkins
+                    withCredentials([string(credentialsId: 'soanr_auth', variable: 'SONAR_AUTH_TOKEN')]) {
                         sh "${scannerHome}/bin/sonar-scanner \
                             -Dsonar.projectKey=projetDeVOPS \
                             -Dsonar.sources=. \
                             -Dsonar.host.url=http://your-sonarqube-server:9000 \
-                            -Dsonar.login=squ_b99cbc07a2adc9d5ab6532f690f65a40428463e4"
+                            -Dsonar.login=$SONAR_AUTH_TOKEN"
                     }
                 }
             }
