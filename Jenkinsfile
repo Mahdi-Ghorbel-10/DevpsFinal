@@ -1,17 +1,34 @@
 pipeline {
     agent any
     stages {
+        stage('Checkout Code') {
+            steps {
+                git url: 'https://github.com/Mahdi-Ghorbel-10/DevpsFinal.git', branch: 'main'
+            }
+        }
+        stage('Unit Testing') {
+            steps {
+                sh '''
+                    python3 -m venv venv
+                    source venv/bin/activate
+                    pip install -r requirements.txt
+                    pytest --junitxml=unit-test-report.xml
+                '''
+            }
+        }
+        stage('Integration Testing') {
+            steps {
+                sh '''
+                    python3 -m venv venv
+                    source venv/bin/activate
+                    pip install -r requirements.txt
+                    pytest tests/integration/ --junitxml=integration-test-report.xml
+                '''
+            }
+        }
         
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t ghorbelmahdi/simple-fastapi-app .'
-            }
-        }
-       stage('Trivy Scan') {
-            steps {
-                sh 'trivy image ghorbelmahdi/simple-fastapi-app:latest'
-            }
-        }
+        
+       
        
       stage('SonarQube Analysis') {
             steps {
@@ -25,6 +42,16 @@ pipeline {
                             -Dsonar.login=$SONAR_AUTH_TOKEN"
                     }
                 }
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t ghorbelmahdi/simple-fastapi-app .'
+            }
+        }
+        stage('Trivy Scan') {
+            steps {
+                sh 'trivy image ghorbelmahdi/simple-fastapi-app:latest'
             }
         }
       
