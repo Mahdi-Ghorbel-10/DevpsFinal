@@ -13,12 +13,14 @@ pipeline {
             }
         }
        
-  stage('SonarQube Analysis') {
-    def scannerHome = tool 'SonarScanner';
-    withSonarQubeEnv() {
+      stage('SonarQube Analysis') {
+          steps{
+            def scannerHome = tool 'SonarScanner';
+            withSonarQubeEnv() {
       sh "${scannerHome}/bin/sonar-scanner"
-    }
-  }
+        }
+      }
+      }
         stage('Push Docker Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
