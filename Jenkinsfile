@@ -14,7 +14,13 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
-                sh 'docker push ghorbelmahdi/simple-fastapi-app:latest'
+                withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                   sh '''
+                      echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                   docker push ghorbelmahdi/simple-fastapi-app:latest
+                      '''
+}
+
             }
         }
     }
