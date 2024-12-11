@@ -21,7 +21,7 @@ pipeline {
                         sh "${scannerHome}/bin/sonar-scanner \
                             -Dsonar.projectKey=projetDeVOPS \
                             -Dsonar.sources=. \
-                            -Dsonar.host.url=http://your-sonarqube-server:9000 \
+                            -Dsonar.host.url=http://localhost:9000 \
                             -Dsonar.login=$SONAR_AUTH_TOKEN"
                     }
                 }
