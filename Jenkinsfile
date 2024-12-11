@@ -9,6 +9,7 @@ pipeline {
         stage('Unit Testing') {
             steps {
                 sh '''
+                    #!/bin/bash
                     python3 -m venv venv
                     source venv/bin/activate
                     pip install -r requirements.txt
@@ -16,7 +17,7 @@ pipeline {
                 '''
             }
         }
-        
+
         
         
        
