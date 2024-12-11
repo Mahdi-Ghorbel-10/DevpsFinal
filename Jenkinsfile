@@ -16,7 +16,7 @@ pipeline {
       stage('SonarQube Analysis') {
             steps {
                 script {
-                    def scannerHome = tool 'SonarQube Scanner'; // Ensure 'SonarScanner' matches your configured scanner name in Jenkins
+                    def scannerHome = tool 'SonarScanner'; // Ensure 'SonarScanner' matches your configured scanner name in Jenkins
                     withCredentials([string(credentialsId: 'soanr_auth', variable: 'SONAR_AUTH_TOKEN')]) {
                         sh "${scannerHome}/bin/sonar-scanner \
                             -Dsonar.projectKey=projetDeVOPS \
