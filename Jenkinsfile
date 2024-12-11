@@ -9,14 +9,14 @@ pipeline {
         stage('Unit Testing') {
             steps {
                 sh '''
-                    python3 -m venv venv
-                    source venv/bin/activate
+                     python3 -m venv venv
+                    . venv/bin/activate
                     pip install -r requirements.txt
                     pytest --junitxml=unit-test-report.xml
                 '''
             }
         }
-        
+
         
         
        
